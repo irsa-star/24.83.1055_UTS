@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenTopUp - Premium Gaming Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --green-pastel: #ebf8f0; 
+            --green-active: #bdf0d2; 
+            --green-main: #6FCF97;
+            --text-dark: #3a414e; 
+            --text-light: #fff;
+            --blue-inactive: #e2f4ea;
+            --card-radius: 20px; 
+            --button-radius: 50px; 
+        }
+        body { 
+            background-color: var(--green-pastel); 
+            color: var(--text-dark); 
+            display: flex; flex-direction: column; min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+        main { flex: 1; padding-bottom: 100px; } 
+        
+        /* HEADER */
+        .navbar { 
+            background-color: #fff !important; 
+            border-bottom-left-radius: 50px; 
+            border-bottom-right-radius: 50px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+            padding: 10px 0;
+            position: relative;
+            z-index: 1000;
+            top: -2px; 
+        }
+        .nav-link { 
+            color: var(--text-dark) !important; 
+            transition: 0.3s; 
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--green-main) !important; text-shadow: 0 0 5px rgba(111,207,151,0.4); }
+        .nav-link.active { text-decoration: underline; text-underline-offset: 5px; text-decoration-color: var(--green-main); }
+        .nav-item-icon { color: var(--text-dark) !important; font-size: 1.2rem; }
+        
+        /* HERO SECTION */
+        .hero-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        .hero-section .pill-active {
+            background-color: #fff;
+            color: var(--green-main);
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        .hero-section p {
+            color: #717e8e;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        .btn-green-pill-hero {
+            background-color: var(--green-main);
+            color: #fff;
+            font-weight: bold;
+            border-radius: var(--button-radius);
+            padding: 12px 40px;
+            transition: 0.3s;
+            border: none;
+            box-shadow: 0 5px 15px rgba(111,207,151,0.4);
+        }
+        .btn-green-pill-hero:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(111,207,151,0.6); color: #fff;}
+
+        /* KARTU HARGA */
+        .game-card { 
+            background-color: #fff; 
+            border: 2px solid transparent;
+            border-radius: var(--card-radius); 
+            transition: 0.3s; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 30px;
+            height: 100%;
+        }
+        .game-card:hover { border-color: var(--green-main); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(111,207,151,0.2); }
+        .card-header-game {
+            background-color: var(--green-active);
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .card-price-green {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green-main);
+            margin-bottom: 10px;
+        }
+        .card-feature-green {
+            list-style: none;
+            padding: 0;
+            color: var(--text-dark);
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .card-feature-green li {
+            padding-left: 25px;
+            
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%236FCF97" class="bi bi-check" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 18px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .btn-green-pill-card { 
+            background: var(--green-main); 
+            color: #fff; 
+            font-weight: bold; 
+            border-radius: var(--button-radius); 
+            transition: 0.3s; 
+            border: none;
+            width: 100%;
+            padding: 12px;
+        }
+        .btn-green-pill-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(111,207,151,0.4); color: #fff;}
+
+        /* FORM INPUT CHECKOUT */
+        .green-checkout-container {
+            background-color: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 50px;
+            text-align: left;
+        }
+        .step-bar-green {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .step-bar-green .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        .step-bar-green .step-number {
+            background-color: #e2e8f0;
+            color: #717e8e;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .step-bar-green .step-item.active .step-number {
+            background-color: var(--green-main);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(111,207,151,0.5);
+        }
+        .step-bar-green .step-label {
+            color: #717e8e;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .step-bar-green::before {
+            content: '';
+            position: absolute;
+            top: 17px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background-color: #e2e8f0;
+            z-index: 1;
+        }
+        .green-input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .green-input-group .form-control {
+            background-color: #fbfbfc;
+            border: 1px solid #e1e8ed;
+            color: var(--text-dark);
+            border-radius: 8px;
+            padding: 15px 15px 15px 45px;
+            font-size: 0.9rem;
+        }
+        .green-input-group .form-control:focus {
+            background-color: #fff;
+            border-color: var(--green-main);
+            box-shadow: 0 0 10px rgba(111,207,151,0.2);
+            outline: none;
+        }
+        .green-input-group .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 1rem;
+        }
+
+      
+        .custom-slider-green::-webkit-slider-thumb {
+            background: var(--green-main);
+        }
+        .custom-slider-green::-moz-range-thumb {
+            background: var(--green-main);
+        }
+        
+        /* FOOTER */
+        .footer-green { 
+            text-align: left; 
+            padding-top: 80px; 
+            background-color: var(--green-pastel); 
+            border-top: 2px solid #2d3748; 
+            padding-bottom: 40px;
+        }
+        .footer-green .brand-section {
+            color: #717e8e;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .footer-green .brand-section .logo-wrapper {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .footer-green .brand-section img { height: 60px; }
+        .footer-green h5 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 20px;}
+        .footer-green .footer-link-group ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-green .footer-link-group ul li { margin-bottom: 8px; font-size: 0.85rem; }
+        .footer-green .footer-link-group ul li a { color: #717e8e; text-decoration: none; transition: 0.3s; }
+        .footer-green .footer-link-group ul li a:hover { color: var(--green-main); }
+        
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1001;
+        }
+        .btn-floating-cs, .btn-floating-bantuan {
+            background-color: #fff;
+            color: var(--text-dark);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border: 1px solid #e1e8ed;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-floating-cs:hover, .btn-floating-bantuan:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); color: var(--green-main); border-color: var(--green-main);}
+
+        /* MODAL POP-UP SIGNIN & SIGNUP */
+        .modal-content { border-radius: 20px; border: none; overflow: hidden; }
+        .auth-image-side { background-color: var(--green-active); display: flex; align-items: center; justify-content: center; padding: 40px; }
+        .auth-form-side { padding: 40px; }
+        .modal-input {
+            background-color: #fbfbfc; border: 1px solid #e1e8ed;
+            border-radius: 8px; padding: 12px 15px; font-size: 0.9rem; width: 100%; margin-bottom: 15px;
+        }
+        .modal-input:focus { outline: none; border-color: var(--green-main); box-shadow: 0 0 10px rgba(111,207,151,0.2); }
+        .btn-modal-green {
+            background-color: var(--green-main); color: #fff; font-weight: 600;
+            border-radius: 50px; padding: 12px; width: 100%; border: none; transition: 0.3s;
+        }
+        .btn-modal-green:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(111,207,151,0.4); }
+        
+        /* Styling untuk Input Number*/
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>    
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container container-large">
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link mx-2 active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="#topup">Top Up</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="#contact">Contact</a></li>
+                </ul>
+                
+                <a class="navbar-brand m-0" href="#home">
+                    <img src="logo robux.png" alt="GreenLogo" height="50">
+                </a>
+                
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link mx-2" href="#" data-bs-toggle="modal" data-bs-target="#signinModal">Signin</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="#"><i class="fas fa-shopping-cart nav-item-icon"></i></a></li>
+                    <li class="nav-item"><a class="nav-link mx-2" href="#"><i class="fas fa-search nav-item-icon"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid p-0">
+        <section id="home" class="hero-section text-center">
+            <div class="container">
+                <div class="pill-active">BELI ROBUX</div>
+                <h1>Pilih Tipe Robux yang<br>Ingin Kamu Beli</h1>
+                <p>Sesuaikan dengan isi dompetmu, stok sabarmu, atau sekadar ikut hati-bebas, kamu pilih sendiri!</p>
+                <div class="mb-5">
+                    <a href="#topup" class="btn btn-green-pill-hero btn-lg px-5 me-3">Mulai Top Up</a>
+                    <a href="#about" class="btn btn-neon btn-lg px-4" style="border: 1px solid var(--text-dark); color: var(--text-dark); border-radius: 50px;">Kenapa Green?</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="container my-5 text-center px-4">
+            <h2 class="fw-bold mb-5" style="color: var(--text-dark);">Pilih Game Favoritmu 🔥</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4 col-sm-6">
+                    <div class="game-card p-4 text-center">
+                        <div class="card-header-game">
+                            <img src="gambar .png" alt="GreenChibi" height="80">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--text-dark);">Robux Gamepass PO</h5>
+                        <p class="text-secondary small">Proses Instan, Mulai dari Rp 5.000</p>
+                        <ul class="card-feature-green text-start">
+                            <li>Harga Robux super murah, paling hemat!</li>
+                            <li>Pengiriman PO sekitar 8-10 hari ya~</li>
+                            <li>Pas buat kamu yang santai & nggak buru-buru.</li>
+                            <li>Stok selalu ada, bisa beli kapan aja!</li>
+                            <li>Bisa pakai kode promo biar makin irit!</li>
+                        </ul>
+                        <a href="#checkout" class="btn btn-green-pill-card w-100 mt-2">Beli Sekarang</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="game-card p-4 text-center">
+                        <div class="card-header-game">
+                            <img src="gambar .png" alt="GreenChibi" height="80" style="transform: rotate(-10deg);">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--text-dark);">Green Premium Services</h5>
+                        <p class="text-secondary small">Sistem Cepat, Legal & Resmi.</p>
+                        <ul class="card-feature-green text-start">
+                            <li>Top-up Robux via Login (super cepat & gampang!)</li>
+                            <li>Robux Gift Gamecard (bisa redeem sendiri/hadiah)</li>
+                            <li>Konsultasi Game Expert 24/7</li>
+                            <li>Layanan Desain Avatar Keren</li>
+                        </ul>
+                        <button class="btn btn-green-pill-card w-100 mt-2" onclick="alert('Mengarahkan ke halaman Premium Services...')">Pilih Layanan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="container my-5 px-4">
+            <div class="game-card p-5 d-flex align-items-center flex-wrap">
+                <div class="col-md-6 mb-4 text-center">
+                    <img src="gambar .png" alt="GreenChibi" class="img-fluid" style="max-height: 300px;">
+                </div>
+                <div class="col-md-6 px-md-5">
+                    <h1 class="fw-bold" style="letter-spacing: -1.5px; color: var(--text-dark);">GreenTopUp: <span style="color: var(--green-main);">Level Up</span> Your Game</h1>
+                    <p class="text-secondary mb-4">Kami hadir sejak 2026 untuk memberikan akses mudah, murah, dan aman bagi para gamers untuk mendapatkan item premium. Kepuasan dan keamanan akun Anda adalah prioritas utama kami.</p>
+                    <a href="contact.html" class="btn btn-neon-fill" style="background-color: var(--green-main); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 5px 15px rgba(111,207,151,0.3);">Hubungi Tim Dukungan Kami</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="topup" class="container my-5 text-center px-4">
+            <div class="green-checkout-container">
+                <div class="step-bar-green">
+                    <div class="step-item"><div class="step-number">1</div><div class="step-label">Order</div></div>
+                    <div class="step-item active"><div class="step-number">2</div><div class="step-label">Detail</div></div>
+                    <div class="step-item"><div class="step-number">3</div><div class="step-label">Buat</div></div>
+                    <div class="step-item"><div class="step-number">4</div><div class="step-label">Metode</div></div>
+                    <div class="step-item"><div class="step-number">5</div><div class="step-label">Konfirmasi</div></div>
+                </div>
+
+                <h1 class="display-5 fw-bold mb-5" style="color: var(--text-dark); letter-spacing: -1.5px;">Detail Informasi</h1>
+                
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <form>
+                            <div class="green-input-group">
+                                <span class="input-icon"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" placeholder="Username Roblox">
+                            </div>
+                            <div class="green-input-group d-flex align-items-center gap-3">
+                                <div class="w-100">
+                                    <span class="input-icon"><img src="logo robux.png" alt="Icon" height="18"></span>
+                                    <input type="number" id="robuxInput" class="form-control" placeholder="Nominal Robux (misal: 50)" value="50">
+                                </div>
+                                <div id="priceDisplay" class="w-100 text-center fw-bold" style="color: var(--text-dark); font-size: 1.2rem;">Rp 5.340</div>
+                            </div>
+                            <div class="green-input-group">
+                                <div id="sliderLabel" class="mb-2 fs-7 fw-bold" style="color: var(--text-dark);">50</div>
+                                <input type="range" id="robuxSlider" class="form-range custom-slider-green" min="50" max="10000" step="50" value="50">
+                            </div>
+                            <div class="green-input-group d-flex align-items-center gap-3">
+                                <div class="text-center fw-bold" style="color: var(--text-dark); font-size: 1rem;"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="ID" height="15"> +62</div>
+                                <div class="w-100">
+                                    <input type="text" class="form-control rounded-3 border-0 bg-transparent p-0" placeholder="Nomor WhatsApp (misal: 0821...)">
+                                </div>
+                            </div>
+                            <div class="green-input-group">
+                                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                                <input type="email" class="form-control" placeholder="Email Notifikasi (Opsional)">
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-lg-4 text-start">
+                        <div class="game-card p-4 h-100 bg-transparent" style="box-shadow: none; border-color: #2d3748 !important; border-top: 2px solid #2d3748 !important;">
+                            <img src="logo robux.png" alt="GreenChibi" height="60" class="mb-3">
+                            <h5 class="fw-bold mb-3" style="color: var(--text-dark);">Catatan:</h5>
+                            <ul class="card-feature-green text-start">
+                                <li>Akan muncul <strong>pending</strong> di akunmu dalam <strong>2-3 hari</strong> setelah pembayaran.</li>
+                                <li>Setelah itu, Robux akan masuk sepenuhnya dalam ±5 hari berikutnya.</li>
+                                <li>Estimasi waktu dari pembayaran hingga Robux masuk adalah sekitar 7-9 hari.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 mt-5">
+                    <div class="col-6 text-start">
+                        <a href="#topup" class="btn btn-blue-inactive p-3 rounded-3" style="background-color: var(--blue-inactive); border: none; color: #717e8e; font-weight: bold; text-decoration: none;"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="button" class="btn btn-green-pill-hero w-auto" onclick="alert('Lanjutkan ke Langkah 3: Buat Gamepass...')">Lanjutkan <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="container my-5 text-center px-4">
+            <div class="game-card p-5 d-flex align-items-center flex-wrap">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-4" style="letter-spacing: -1px; color: var(--text-dark);">Hubungi Dukungan GreenTopUp 🎧</h3>
+                    <p class="text-secondary mb-5">Kami siap membantu setiap kendala kamu dalam 24 jam. Jangan ragu untuk menghubungi tim ahli kami!</p>
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control p-3 rounded-3 text-center border-0" style="background-color: #fbfbfc;" placeholder="Masukkan nama kamu">
+                        </div>
+                        <div class="mb-4">
+                            <textarea class="form-control p-3 rounded-3 text-center border-0" style="background-color: #fbfbfc;" rows="5" placeholder="Tulis pesanmu di sini..."></textarea>
+                        </div>
+                        <button type="button" class="btn btn-neon w-100 p-3 rounded-3" style="border: 1px solid var(--text-dark); color: var(--text-dark); font-weight: bold; background: white;" onclick="alert('Pesan dikirim! Tim Green akan segera merespon.')">Kirim Pesan Bantuan</button>
+                    </form>
+                </div>
+                <div class="col-lg-6 text-start px-md-5 mt-5 mt-lg-0">
+                    <h1 class="display-3 fw-bold mt-5" style="letter-spacing: -1.5px; color: var(--text-dark);">Butuh Bantuan Lebih Cepat?</h1>
+                    <p class="lead text-muted mb-4">Gunakan tombol melayang di kanan bawah untuk layanan Chat CS dan Bantuan Instan.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-green container-fluid p-0">
+        <div class="container text-left">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="brand-section">
+                        <div class="logo-wrapper">
+                            <img src="logo robux.png" alt="GreenTopUp Logo">
+                        </div>
+                        <p>GreenTopUp pilihan nomor satu untuk jadi teman robloxmu! Kebutuhan roblox apapun pasti ada di GreenTopUp!</p>
+                        <div class="social-icons d-flex gap-2 mt-4">
+                            <a href="#" class="btn btn-outline-light rounded-circle p-2 text-dark" style="border-color: #2d3748;"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="btn btn-outline-light rounded-circle p-2 text-dark" style="border-color: #2d3748;"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 footer-link-group">
+                    <h5>Produk</h5>
+                    <ul>
+                        <li><a href="#">Robux</a></li>
+                        <li><a href="#">Gamepass PO</a></li>
+                        <li><a href="#">Item Roblox</a></li>
+                        <li><a href="#">Game Lainnya</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 footer-link-group">
+                    <h5>Item Roblox</h5>
+                    <ul>
+                        <li><a href="#">Bloxfruits Gamepass</a></li>
+                        <li><a href="#">Bloxfruits Permanaen</a></li>
+                        <li><a href="#">Expedition Antartica</a></li>
+                        <li><a href="#">Lainnya</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 footer-link-group">
+                    <h5>Informasi</h5>
+                    <ul>
+                        <li><a href="#">Check Pesan</a></li>
+                        <li><a href="#">FAQ (Pertanyaan Umum)</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6 footer-link-group">
+                    <h5>Kontak Kami</h5>
+                    <ul>
+                        <li><a href="#">Telegram(@GreenTopUpCS)</a></li>
+                        <li><a href="#">Instagram(@GreenTopUp)</a></li>
+                        <li><a href="#">Kirim Pesan Bantuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom-green mt-5 pt-4 text-center border-top border-dark brand-section" style="border-top: 1px solid #2d3748 !important;">
+                <p class="fw-bold text-dark mb-1">by sri irsa © 2026 GreenTopUp.</p>
+                <p class="mb-0 fs-8">GreenTopUp.com merupakan platform independen yang ditujukan bagi komunitas pemain Roblox yang ingin melakukan jual beli item dengan cara yang aman, praktis, dan nyaman. Kami tidak memiliki afiliasi atau hubungan resmi dengan Roblox Corporation. Seluruh merek dagang dan hak cipta tetap menjadi milik masing-masing pemiliknya.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="floating-buttons">
+        <a href="#cs" class="btn-floating-cs rounded-pill" onclick="alert('Membuka Chat CS GreenTopUp...')"><i class="fas fa-comment nav-item-icon"></i> Chat CS</a>
+        <a href="#help" class="btn-floating-bantuan rounded-pill" onclick="alert('Membuka Pusat Bantuan...')"><i class="fas fa-question nav-item-icon"></i> Bantuan</a>
+    </div>
+
+    <div class="modal fade" id="signinModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content row flex-row mx-0">
+                <div class="col-md-5 auth-image-side d-none d-md-flex">
+                    <img src="gambar .png" alt="Green Chibi" class="img-fluid" style="max-height: 250px;">
+                </div>
+                <div class="col-md-7 auth-form-side">
+                    <div class="d-flex justify-content-between mb-4">
+                        <img src="logo robux.png" alt="Logo" height="40">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <h4 class="fw-bold">Selamat Datang Kembali!</h4>
+                    <p class="text-secondary small mb-4">Silakan masuk ke akun GreenTopUp kamu.</p>
+                    
+                    <form>
+                        <input type="text" class="modal-input" placeholder="Username atau Email">
+                        <input type="password" class="modal-input" placeholder="Password">
+                        <button type="button" class="btn-modal-green mb-3" data-bs-dismiss="modal">Masuk</button>
+                    </form>
+                    
+                    <div class="text-center small">
+                        Belum punya akun? <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" style="color: var(--green-main); font-weight: bold;">Daftar di sini</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content row flex-row mx-0">
+                <div class="col-md-7 auth-form-side">
+                    <div class="d-flex justify-content-between mb-4">
+                        <h4 class="fw-bold">Buat Akun Baru</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <form>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="modal-input" placeholder="Nama Depan">
+                            <input type="text" class="modal-input" placeholder="Nama Belakang">
+                        </div>
+                        <input type="email" class="modal-input" placeholder="Email">
+                        <input type="password" class="modal-input" placeholder="Buat Password">
+                        <button type="button" class="btn-modal-green mb-3" data-bs-dismiss="modal">Daftar Sekarang</button>
+                    </form>
+                    
+                    <div class="text-center small">
+                        Sudah punya akun? <a href="#" data-bs-toggle="modal" data-bs-target="#signinModal" style="color: var(--green-main); font-weight: bold;">Masuk di sini</a>
+                    </div>
+                </div>
+                <div class="col-md-5 auth-image-side d-none d-md-flex flex-column text-center">
+                    <img src="gambar .png" alt="Green Chibi" class="img-fluid mb-3" style="max-height: 200px;">
+                    <h6 class="fw-bold" style="color: #fff;">Gabung Bersama Kami!</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scroll navigasi
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if(this.getAttribute('data-bs-toggle') === 'modal') return;
+                
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // LOGIK PERHITUNGAN ROBUX (SLIDER & INPUT)
+        document.addEventListener("DOMContentLoaded", function() {
+            const robuxInput = document.getElementById("robuxInput");
+            const robuxSlider = document.getElementById("robuxSlider");
+            const priceDisplay = document.getElementById("priceDisplay");
+            const sliderLabel = document.getElementById("sliderLabel");
+
+            // Tarif: 50 Robux = Rp 5.340 -> 1 Robux = 106.8
+            const ratePerRobux = 106.8; 
+
+            // Fungsi Format Rupiah
+            function formatRupiah(angka) {
+                return new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(angka).replace("Rp", "Rp ");
+            }
+
+            // Fungsi Update Nilai
+            function updateValues(robuxAmount) {
+                let amount = parseInt(robuxAmount);
+                if (isNaN(amount) || amount < 0) amount = 0;
+                
+                let price = Math.round(amount * ratePerRobux);
+                
+                // Update ke antarmuka
+                robuxInput.value = amount;
+                robuxSlider.value = amount;
+                sliderLabel.innerText = amount;
+                priceDisplay.innerText = formatRupiah(price);
+            }
+
+            // Kalau Slider digeser
+            robuxSlider.addEventListener("input", function() {
+                updateValues(this.value);
+            });
+
+            // Kalau Angka diketik manual (Bisa jutaan!)
+            robuxInput.addEventListener("input", function() {
+                let val = parseInt(this.value);
+                
+                // Jika ketik melebihi batas slider saat ini, max slidernya otomatis diperbesar
+                if (val > parseInt(robuxSlider.max)) {
+                    robuxSlider.max = val; 
+                }
+                
+                updateValues(this.value);
+            });
+        });
+    </script>
+</body>
+</html>
